@@ -10,7 +10,7 @@
            height: 600px;
        }
 
-       #play-button {
+       .action {
            border: 1px solid #333;
            border-radius: 3px;
            background: transparent;
@@ -22,52 +22,92 @@
 <body>
     <div id="activity-map"></div>
 
-    <button id="play-button">Play</button>
+    <button id="play-button" class="action">Play Run</button>
+    <button id="stop-button" class="action">Stop Run</button>
+
+    <label for="gain">Gain</label>
+    <input type="range" min="0" max="1" step="0.1" id="gain" />
+
+    <label for="waveform">Waveform type</label>
+    <select id="waveform">
+        <option value="sine" selected>Sine</option>
+        <option value="square">Square</option>
+        <option value="triangle">Triangle</option>
+        <option value="sawtooth">Sawtooth</option>
+    </select>
 
     <script type="module">
-        import stream from "/data/activities/2414468273/stream.json" assert { type: "json" };
-        // import { play } from "./scripts/sounds.js";
+        import stream from "/data/activities/5351605570/stream-high.json" assert { type: "json" };
 
         const altitude = stream.find((s) => s.type === "altitude");
         const latlng = stream.find((s) => s.type === "latlng");
 
+        const notes = altitude.data;
+
         const btn = document.querySelector("#play-button");
+        const stopBtn = document.querySelector("#stop-button");
+        const gainRange = document.querySelector("#gain");
+        const waveform = document.querySelector("#waveform");
 
         const output = new AudioContext();
 
+        let oscillator = null;
+        let amplifier = null;
+        let playing = null;
+        let isPlaying = false;
+        let paused = false;
+        let note = 0;
+
         let marker;
 
-        const play = (notes) => {
-            let playing = null;
-            let note = 0;
-            let instrument = output.createOscillator();
-            let amplifier = output.createGain();
+        const playNotes = () => {
 
-            const playNotes = () => {
-                if (note < notes.length) {
-                    instrument.frequency.value = 440 + (notes[note] * 64); // hertz
-                    marker.setLatLng(latlng.data[note]);
-                    note = note + 1;
-                } else {
-                    amplifier.gain.value = 0;
-                }
+            if (!paused && note < notes.length) {
+                amplifier.gain.value = document.querySelector("#gain").value;
+                oscillator.frequency.value = 440 + (notes[note] * 64); // hertz
+
+                marker.setLatLng(latlng.data[note]);
+
+                note = note + 1;
+            } else {
+                amplifier.gain.value = 0;
+            }
+
+            if (!paused) {
                 playing = window.setTimeout(playNotes, 25);
-            };
-
-            instrument.type = 'sine';
-            instrument.start();
-            instrument.connect(amplifier);
-
-            amplifier.gain.value = 0.7;
-            amplifier.connect(output.destination);
-
-            playNotes();
+            }
         };
 
         btn.addEventListener("click", () => {
-            if (altitude) {
-                play(altitude.data);
+            if (!oscillator) {
+                // Creates a constant tone
+                oscillator = output.createOscillator();
+                oscillator.type = waveform.value;
+
+                amplifier = output.createGain();
+                amplifier.gain.value = document.querySelector("#gain").value;
+                amplifier.connect(output.destination);
+
+                oscillator.connect(amplifier);
+                oscillator.start();
             }
+
+            if (altitude) {
+                paused = false;
+                playNotes();
+            }
+        });
+
+        stopBtn.addEventListener("click", () => {
+            paused = true;
+        });
+
+        gainRange.addEventListener("change", (event) => {
+            amplifier.gain.value = event.target.value;
+        });
+
+        waveform.addEventListener("change", (event) => {
+            oscillator.type = event.target.value;
         });
 
         const activityMap = L.map("activity-map").setView([50.73, -2.02], 13);
