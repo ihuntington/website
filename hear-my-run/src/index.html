@@ -6,6 +6,10 @@
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
    <style>
+       body {
+           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+       }
+
        #activity-map {
            height: 600px;
        }
@@ -22,6 +26,10 @@
 <body>
     <div id="activity-map"></div>
 
+    <div id="altitude">
+        <svg></svg>
+    </div>
+
     <button id="play-button" class="action">Play Run</button>
     <button id="stop-button" class="action">Stop Run</button>
 
@@ -30,18 +38,20 @@
 
     <label for="waveform">Waveform type</label>
     <select id="waveform">
-        <option value="sine" selected>Sine</option>
-        <option value="square">Square</option>
+        <option value="sine">Sine</option>
+        <option value="square" selected>Square</option>
         <option value="triangle">Triangle</option>
         <option value="sawtooth">Sawtooth</option>
     </select>
 
+    <p>Prior art: <a href="https://adactio.com/journal/12811">Sonic Sparklines</a> and <a href="https://gist.github.com/adactio/d988edc418aabfa2220456dc548dedc1">Convert numbers to sounds</a> by Jeremy Keith, and <a href="http://marcgg.com/blog/2016/11/01/javascript-audio/">Note frequencies in Hertz</a> by Marc Gauthier.</p>
+
     <script type="module">
-        import stream from "/data/activities/5351605570/stream-high.json" assert { type: "json" };
+        // You can now import JSON as a module
+        import stream from "/data/activities/5351605570/stream-heartrate-high.json" assert { type: "json" };
 
         const altitude = stream.find((s) => s.type === "altitude");
         const latlng = stream.find((s) => s.type === "latlng");
-
         const notes = altitude.data;
 
         const btn = document.querySelector("#play-button");
@@ -49,6 +59,7 @@
         const gainRange = document.querySelector("#gain");
         const waveform = document.querySelector("#waveform");
 
+        // Create an AudioContext which is our output
         const output = new AudioContext();
 
         let oscillator = null;
@@ -61,15 +72,18 @@
         let marker;
 
         const playNotes = () => {
-
             if (!paused && note < notes.length) {
                 amplifier.gain.value = document.querySelector("#gain").value;
+
+                // Convert the current data point from the elevation stream to a frequency value
                 oscillator.frequency.value = 440 + (notes[note] * 64); // hertz
 
+                // Update the position of the marker from the latlng stream
                 marker.setLatLng(latlng.data[note]);
 
                 note = note + 1;
             } else {
+                // At the end of the stream, set gain to zero otherwise the oscillator will continue to be heard
                 amplifier.gain.value = 0;
             }
 
@@ -80,15 +94,20 @@
 
         btn.addEventListener("click", () => {
             if (!oscillator) {
-                // Creates a constant tone
+                // An oscillator creates a constant tone
                 oscillator = output.createOscillator();
+                // Set the type of waveform
                 oscillator.type = waveform.value;
 
+                // Gain = volume
                 amplifier = output.createGain();
                 amplifier.gain.value = document.querySelector("#gain").value;
+                // Connect the amplifier to the output
                 amplifier.connect(output.destination);
 
+                // Connect the oscillator to the amplifier
                 oscillator.connect(amplifier);
+                // Start the oscillator. Note once stopped you cannot restart.
                 oscillator.start();
             }
 
@@ -111,6 +130,8 @@
         });
 
         const activityMap = L.map("activity-map").setView([50.73, -2.02], 13);
+
+        // Add my face
         const icon = L.icon({
             iconUrl: "/images/me.png",
             iconSize: [48, 68],
@@ -125,6 +146,7 @@
             accessToken: 'pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A'
         }).addTo(activityMap);
 
+        // Take the latlng stream and add as a polyline... could also use the GeoEncoded polyline in the activity JSON but this requires an additional Leaflet plugin
         const route = L.polyline(latlng.data, {
             color: 'blue',
             weight: 2,
