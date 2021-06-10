@@ -1,0 +1,657 @@
+{
+    "resource_state": 3,
+    "athlete": {
+        "id": 5392452,
+        "resource_state": 1
+    },
+    "name": "Morning run",
+    "distance": 5806.6,
+    "moving_time": 1531,
+    "elapsed_time": 1557,
+    "total_elevation_gain": 26.8,
+    "type": "Run",
+    "workout_type": 0,
+    "id": 5332797022,
+    "external_id": "4398AA76-0C97-46E7-81DC-E42D801260DC-activity.fit",
+    "upload_id": 5680045480,
+    "start_date": "2021-05-21T08:38:14Z",
+    "start_date_local": "2021-05-21T09:38:14Z",
+    "timezone": "(GMT+00:00) Europe/London",
+    "utc_offset": 3600.0,
+    "start_latlng": [
+        52.6,
+        1.24
+    ],
+    "end_latlng": [
+        52.6,
+        1.24
+    ],
+    "location_city": null,
+    "location_state": null,
+    "location_country": "United Kingdom",
+    "start_latitude": 52.6,
+    "start_longitude": 1.24,
+    "achievement_count": 4,
+    "kudos_count": 1,
+    "comment_count": 0,
+    "athlete_count": 1,
+    "photo_count": 0,
+    "map": {
+        "id": "a5332797022",
+        "polyline": "{fa`IsoqFACK`@i@v@_@FG?ECm@cASWS_@_@a@Ww@IMQQIQ[iAKs@GSOQUKUPGTW\\KZMV[\\G^a@FKFS\\Q@_@TGDa@~@OPUHOLYd@I\\Ur@]t@c@l@Sf@IJU^MJEHa@^MFOVOJ[b@g@d@UHGDQf@m@f@ILGDm@j@MJSFUNMPWD[X{@R[PEJSNq@Hu@`@MBUHEDE?QRQJg@j@i@\\IRe@Vu@~@SHIVKNq@j@Qb@c@j@e@t@Ol@Uj@EAKIKV]h@Qj@Gx@WvA?n@QfAKRg@bC[v@CNSj@]dBQn@QXWdA[|@k@nAWx@YrA[h@Ob@UbAa@v@[\\KBMESAo@Yi@EK@cAd@cAt@}@h@aBpAs@\\UNYJCFBb@APg@^KLAJ@PFRPVTHRBj@Nh@VLJDFBR?z@G|AENQLU@WHUBOAu@HwCO_@ISA}@Qi@AS@c@Xe@RUFy@DMAECS[I[McA@SHuATc@@IBs@Li@LiA?c@D_A?_@@UFGJEr@@t@EN@d@AD@DZCjA@TJb@FBFAD_@?UKuD@a@LmAPaA?gALa@NUv@Yb@]pAy@RKh@IVMf@Qz@e@v@e@TSn@a@TSBIt@u@b@i@lAkA`@g@D_@BA@GHKj@cBTk@~@{AV_ARc@NGF?FBRPHAHIPEf@[HCXYRYh@YHMNEROLCTWb@Sv@QRDNNR_A^u@j@w@^o@Z_@XWHOf@g@LQTOjAoATQLGf@g@JCPQRMZKDEh@SRAr@ShDsBVKnB}Ad@g@LEZYJGn@}@XUZg@f@o@XUJMDYHSN[RSt@{BTe@PUj@i@d@k@z@s@j@{@J?TKv@wAb@m@Pa@FCNDj@`CDCBBLf@Tt@\\t@X`@Tl@JLj@zAL@NId@i@\\i@",
+        "resource_state": 3,
+        "summary_polyline": "{fa`IsoqFACK`@i@v@_@FG?ECm@cASWS_@_@a@Ww@IMQQIQ[iAKs@GSOQUKUPGTW\\KZMV[\\G^a@FKFS\\Q@_@TGDa@~@OPUHOLYd@I\\Ur@]t@c@l@Sf@IJU^MJEHa@^MFOVOJ[b@g@d@UHGDQf@m@f@ILGDm@j@MJSFUNMPWD[X{@R[PEJSNq@Hu@`@MBUHEDE?QRQJg@j@i@\\IRe@Vu@~@SHIVKNq@j@Qb@c@j@e@t@Ol@Uj@EAKIKV]h@Qj@Gx@WvA?n@QfAKRg@bC[v@CNSj@]dBQn@QXWdA[|@k@nAWx@YrA[h@Ob@UbAa@v@[\\KBMESAo@Yi@EK@cAd@cAt@}@h@aBpAs@\\UNYJCFBb@APg@^KLAJ@PFRPVTHRBj@Nh@VLJDFBR?z@G|AENQLU@WHUBOAu@HwCO_@ISA}@Qi@AS@c@Xe@RUFy@DMAECOSMc@McA@SHuATc@@IBs@Li@LiA?c@D_A?_@@UFGJEr@@t@EN@d@AD@DZCjA@TJb@FBFAD_@?UKuD@a@LmAPaA?gALa@NUv@Yt@k@PIl@a@RKh@IVMf@Qz@e@v@e@TSn@a@TSBIt@u@b@i@lAkA`@g@D_@BA@GHKj@cBTk@~@{AV_ARc@NGF?FBRPHAHIPEf@[HCXYRYh@YHMNEROLCTWb@Sv@QRDNNR_A^u@j@w@^o@Z_@XWHOf@g@LQTOjAoATQLGf@g@JCPQRMZKDEh@SRAr@ShDsBVKnB}Ad@g@LEZYJGn@}@XUZg@f@o@XUJMDYHSN[RSt@{BTe@PUj@i@d@k@z@s@j@{@J?TKv@wAb@m@Pa@FCNDj@`CDCBBLf@Tt@\\t@X`@Tl@JLj@zAL@NId@i@\\i@"
+    },
+    "trainer": false,
+    "commute": false,
+    "manual": false,
+    "private": false,
+    "visibility": "everyone",
+    "flagged": false,
+    "gear_id": null,
+    "from_accepted_tag": false,
+    "upload_id_str": "5680045480",
+    "average_speed": 3.793,
+    "max_speed": 5.8,
+    "has_heartrate": false,
+    "heartrate_opt_out": false,
+    "display_hide_heartrate_option": false,
+    "elev_high": 25.6,
+    "elev_low": 8.3,
+    "pr_count": 0,
+    "total_photo_count": 0,
+    "has_kudoed": false,
+    "description": null,
+    "calories": 456.5,
+    "perceived_exertion": null,
+    "prefer_perceived_exertion": null,
+    "segment_efforts": [
+        {
+            "id": 2830748656945000528,
+            "resource_state": 2,
+            "name": "Colney Lane dash",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 188,
+            "moving_time": 185,
+            "start_date": "2021-05-21T08:41:34Z",
+            "start_date_local": "2021-05-21T09:41:34Z",
+            "distance": 694.4,
+            "start_index": 200,
+            "end_index": 388,
+            "segment": {
+                "id": 6974259,
+                "resource_state": 2,
+                "name": "Colney Lane dash",
+                "activity_type": "Run",
+                "distance": 694.4,
+                "average_grade": -0.1,
+                "maximum_grade": 1.7,
+                "elevation_high": 26.3,
+                "elevation_low": 24.8,
+                "start_latlng": [
+                    52.609137,
+                    1.23937
+                ],
+                "end_latlng": [
+                    52.614428,
+                    1.234286
+                ],
+                "elevation_profile": null,
+                "start_latitude": 52.609137,
+                "start_longitude": 1.23937,
+                "end_latitude": 52.614428,
+                "end_longitude": 1.234286,
+                "climb_category": 0,
+                "city": "Cringleford",
+                "state": "England",
+                "country": "United Kingdom",
+                "private": false,
+                "hazardous": false,
+                "starred": false
+            },
+            "pr_rank": null,
+            "achievements": [],
+            "hidden": false
+        },
+        {
+            "id": 2830748656946159696,
+            "resource_state": 2,
+            "name": "Speedy pathh to the bridge",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 44,
+            "moving_time": 44,
+            "start_date": "2021-05-21T08:52:47Z",
+            "start_date_local": "2021-05-21T09:52:47Z",
+            "distance": 221.1,
+            "start_index": 872,
+            "end_index": 916,
+            "segment": {
+                "id": 24645258,
+                "resource_state": 2,
+                "name": "Speedy pathh to the bridge",
+                "activity_type": "Run",
+                "distance": 221.1,
+                "average_grade": -0.2,
+                "maximum_grade": 2.0,
+                "elevation_high": 9.9,
+                "elevation_low": 8.6,
+                "start_latlng": [
+                    52.621286,
+                    1.226406
+                ],
+                "end_latlng": [
+                    52.621377,
+                    1.2293
+                ],
+                "elevation_profile": null,
+                "start_latitude": 52.621286,
+                "start_longitude": 1.226406,
+                "end_latitude": 52.621377,
+                "end_longitude": 1.2293,
+                "climb_category": 0,
+                "city": "Colney",
+                "state": "England",
+                "country": "United Kingdom",
+                "private": false,
+                "hazardous": false,
+                "starred": false
+            },
+            "pr_rank": 3,
+            "achievements": [
+                {
+                    "type_id": 3,
+                    "type": "pr",
+                    "rank": 3
+                }
+            ],
+            "hidden": false
+        },
+        {
+            "id": 2830748656946106448,
+            "resource_state": 2,
+            "name": "AWP Beast length",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 96,
+            "moving_time": 96,
+            "start_date": "2021-05-21T08:53:43Z",
+            "start_date_local": "2021-05-21T09:53:43Z",
+            "distance": 378.9,
+            "start_index": 928,
+            "end_index": 1024,
+            "segment": {
+                "id": 20727535,
+                "resource_state": 2,
+                "name": "AWP Beast length",
+                "activity_type": "Run",
+                "distance": 378.9,
+                "average_grade": 0.2,
+                "maximum_grade": 1.2,
+                "elevation_high": 8.7,
+                "elevation_low": 7.9,
+                "start_latlng": [
+                    52.620791,
+                    1.229154
+                ],
+                "end_latlng": [
+                    52.617761,
+                    1.231437
+                ],
+                "elevation_profile": null,
+                "start_latitude": 52.620791,
+                "start_longitude": 1.229154,
+                "end_latitude": 52.617761,
+                "end_longitude": 1.231437,
+                "climb_category": 0,
+                "city": "Norwich",
+                "state": "England",
+                "country": "United Kingdom",
+                "private": false,
+                "hazardous": false,
+                "starred": false
+            },
+            "pr_rank": 3,
+            "achievements": [
+                {
+                    "type_id": 3,
+                    "type": "pr",
+                    "rank": 3
+                }
+            ],
+            "hidden": false
+        },
+        {
+            "id": 2830748656946363472,
+            "resource_state": 2,
+            "name": "Dog Poo Hill",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 51,
+            "moving_time": 51,
+            "start_date": "2021-05-21T08:57:20Z",
+            "start_date_local": "2021-05-21T09:57:20Z",
+            "distance": 155.2,
+            "start_index": 1107,
+            "end_index": 1158,
+            "segment": {
+                "id": 16551131,
+                "resource_state": 2,
+                "name": "Dog Poo Hill",
+                "activity_type": "Run",
+                "distance": 155.2,
+                "average_grade": 3.1,
+                "maximum_grade": 6.2,
+                "elevation_high": 25.8,
+                "elevation_low": 21.0,
+                "start_latlng": [
+                    52.616132,
+                    1.233668
+                ],
+                "end_latlng": [
+                    52.614774,
+                    1.234532
+                ],
+                "elevation_profile": null,
+                "start_latitude": 52.616132,
+                "start_longitude": 1.233668,
+                "end_latitude": 52.614774,
+                "end_longitude": 1.234532,
+                "climb_category": 0,
+                "city": "Cringleford",
+                "state": "England",
+                "country": "United Kingdom",
+                "private": false,
+                "hazardous": false,
+                "starred": false
+            },
+            "pr_rank": 3,
+            "achievements": [
+                {
+                    "type_id": 3,
+                    "type": "pr",
+                    "rank": 3
+                }
+            ],
+            "hidden": false
+        },
+        {
+            "id": 2830748656946010192,
+            "resource_state": 2,
+            "name": "Colney Lane bollards to Harts Farm Lane",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 158,
+            "moving_time": 158,
+            "start_date": "2021-05-21T08:58:37Z",
+            "start_date_local": "2021-05-21T09:58:37Z",
+            "distance": 633.6,
+            "start_index": 1184,
+            "end_index": 1342,
+            "segment": {
+                "id": 11231708,
+                "resource_state": 2,
+                "name": "Colney Lane bollards to Harts Farm Lane",
+                "activity_type": "Run",
+                "distance": 633.6,
+                "average_grade": 0.3,
+                "maximum_grade": 4.2,
+                "elevation_high": 26.8,
+                "elevation_low": 24.8,
+                "start_latlng": [
+                    52.614044,
+                    1.235012
+                ],
+                "end_latlng": [
+                    52.609078,
+                    1.239322
+                ],
+                "elevation_profile": null,
+                "start_latitude": 52.614044,
+                "start_longitude": 1.235012,
+                "end_latitude": 52.609078,
+                "end_longitude": 1.239322,
+                "climb_category": 0,
+                "city": "Cringleford",
+                "state": null,
+                "country": "United Kingdom",
+                "private": false,
+                "hazardous": false,
+                "starred": false
+            },
+            "pr_rank": 3,
+            "achievements": [
+                {
+                    "type_id": 3,
+                    "type": "pr",
+                    "rank": 3
+                }
+            ],
+            "hidden": false
+        }
+    ],
+    "splits_metric": [
+        {
+            "distance": 1000.3,
+            "elapsed_time": 260,
+            "elevation_difference": 1.1,
+            "moving_time": 260,
+            "split": 1,
+            "average_speed": 3.85,
+            "average_grade_adjusted_speed": 3.86,
+            "pace_zone": 0
+        },
+        {
+            "distance": 1002.7,
+            "elapsed_time": 268,
+            "elevation_difference": 0.2,
+            "moving_time": 268,
+            "split": 2,
+            "average_speed": 3.74,
+            "average_grade_adjusted_speed": 3.76,
+            "pace_zone": 0
+        },
+        {
+            "distance": 1000.2,
+            "elapsed_time": 253,
+            "elevation_difference": -11.5,
+            "moving_time": 253,
+            "split": 3,
+            "average_speed": 3.95,
+            "average_grade_adjusted_speed": 3.87,
+            "pace_zone": 0
+        },
+        {
+            "distance": 997.6,
+            "elapsed_time": 269,
+            "elevation_difference": -2.1,
+            "moving_time": 269,
+            "split": 4,
+            "average_speed": 3.71,
+            "average_grade_adjusted_speed": 3.69,
+            "pace_zone": 0
+        },
+        {
+            "distance": 1001.2,
+            "elapsed_time": 316,
+            "elevation_difference": 12.1,
+            "moving_time": 279,
+            "split": 5,
+            "average_speed": 3.59,
+            "average_grade_adjusted_speed": 3.79,
+            "pace_zone": 0
+        },
+        {
+            "distance": 804.6,
+            "elapsed_time": 201,
+            "elevation_difference": 0.1,
+            "moving_time": 201,
+            "split": 6,
+            "average_speed": 4.0,
+            "average_grade_adjusted_speed": 4.03,
+            "pace_zone": 0
+        }
+    ],
+    "splits_standard": [
+        {
+            "distance": 1613.5,
+            "elapsed_time": 424,
+            "elevation_difference": 3.4,
+            "moving_time": 424,
+            "split": 1,
+            "average_speed": 3.81,
+            "average_grade_adjusted_speed": 3.83,
+            "pace_zone": 0
+        },
+        {
+            "distance": 1606.5,
+            "elapsed_time": 413,
+            "elevation_difference": -15.6,
+            "moving_time": 413,
+            "split": 2,
+            "average_speed": 3.89,
+            "average_grade_adjusted_speed": 3.82,
+            "pace_zone": 0
+        },
+        {
+            "distance": 1608.6,
+            "elapsed_time": 487,
+            "elevation_difference": 13.3,
+            "moving_time": 450,
+            "split": 3,
+            "average_speed": 3.57,
+            "average_grade_adjusted_speed": 3.7,
+            "pace_zone": 0
+        },
+        {
+            "distance": 978.0,
+            "elapsed_time": 243,
+            "elevation_difference": -1.2,
+            "moving_time": 243,
+            "split": 4,
+            "average_speed": 4.02,
+            "average_grade_adjusted_speed": 4.04,
+            "pace_zone": 0
+        }
+    ],
+    "laps": [
+        {
+            "id": 17368413057,
+            "resource_state": 2,
+            "name": "Lap 1",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 1557,
+            "moving_time": 1531,
+            "start_date": "2021-05-21T08:38:14Z",
+            "start_date_local": "2021-05-21T09:38:14Z",
+            "distance": 5806.64,
+            "start_index": 0,
+            "end_index": 1528,
+            "total_elevation_gain": 28.4,
+            "average_speed": 3.79,
+            "max_speed": 5.8,
+            "lap_index": 1,
+            "split": 1,
+            "pace_zone": 0
+        }
+    ],
+    "best_efforts": [
+        {
+            "id": 11526676590,
+            "resource_state": 2,
+            "name": "400m",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 94,
+            "moving_time": 95,
+            "start_date": "2021-05-21T09:00:28Z",
+            "start_date_local": "2021-05-21T10:00:28Z",
+            "distance": 400,
+            "start_index": 1295,
+            "end_index": 1390,
+            "pr_rank": null,
+            "achievements": []
+        },
+        {
+            "id": 11526676616,
+            "resource_state": 2,
+            "name": "1/2 mile",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 195,
+            "moving_time": 195,
+            "start_date": "2021-05-21T08:59:10Z",
+            "start_date_local": "2021-05-21T09:59:10Z",
+            "distance": 805,
+            "start_index": 1217,
+            "end_index": 1412,
+            "pr_rank": null,
+            "achievements": []
+        },
+        {
+            "id": 11526676644,
+            "resource_state": 2,
+            "name": "1k",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 242,
+            "moving_time": 243,
+            "start_date": "2021-05-21T08:59:12Z",
+            "start_date_local": "2021-05-21T09:59:12Z",
+            "distance": 1000,
+            "start_index": 1219,
+            "end_index": 1462,
+            "pr_rank": null,
+            "achievements": []
+        },
+        {
+            "id": 11526676670,
+            "resource_state": 2,
+            "name": "1 mile",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 407,
+            "moving_time": 408,
+            "start_date": "2021-05-21T08:44:54Z",
+            "start_date_local": "2021-05-21T09:44:54Z",
+            "distance": 1609,
+            "start_index": 400,
+            "end_index": 807,
+            "pr_rank": null,
+            "achievements": []
+        },
+        {
+            "id": 11526676708,
+            "resource_state": 2,
+            "name": "2 mile",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 827,
+            "moving_time": 828,
+            "start_date": "2021-05-21T08:38:33Z",
+            "start_date_local": "2021-05-21T09:38:33Z",
+            "distance": 3219,
+            "start_index": 19,
+            "end_index": 846,
+            "pr_rank": null,
+            "achievements": []
+        },
+        {
+            "id": 11526676744,
+            "resource_state": 2,
+            "name": "5k",
+            "activity": {
+                "id": 5332797022,
+                "resource_state": 1
+            },
+            "athlete": {
+                "id": 5392452,
+                "resource_state": 1
+            },
+            "elapsed_time": 1348,
+            "moving_time": 1293,
+            "start_date": "2021-05-21T08:40:43Z",
+            "start_date_local": "2021-05-21T09:40:43Z",
+            "distance": 5000,
+            "start_index": 149,
+            "end_index": 1459,
+            "pr_rank": null,
+            "achievements": []
+        }
+    ],
+    "photos": {
+        "primary": null,
+        "count": 0
+    },
+    "device_name": "Strava iPhone App",
+    "embed_token": "b63a6f1dab5be8167a13c99ca19d05d3780cbbfe",
+    "similar_activities": {
+        "effort_count": 1,
+        "average_speed": 3.792684583707544,
+        "min_average_speed": 3.792684583707544,
+        "mid_average_speed": 3.792684583707544,
+        "max_average_speed": 3.792684583707544,
+        "pr_rank": null,
+        "frequency_milestone": null,
+        "trend": {
+            "speeds": [
+                3.792684583707544
+            ],
+            "current_activity_index": 0,
+            "min_speed": 3.792684583707544,
+            "mid_speed": 3.792684583707544,
+            "max_speed": 3.792684583707544,
+            "direction": 0
+        },
+        "resource_state": 2
+    },
+    "available_zones": []
+}
