@@ -1,161 +1,161 @@
-<head>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin=""/>
-   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-   crossorigin=""></script>
-   <style>
-       body {
-           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-       }
-
-       #activity-map {
-           height: 600px;
-       }
-
-       .action {
-           border: 1px solid #333;
-           border-radius: 3px;
-           background: transparent;
-           padding: 1em;
-           margin: 1em auto;
-       }
-   </style>
-</head>
-<body>
-    <div id="activity-map"></div>
-
-    <div id="altitude">
-        <svg></svg>
-    </div>
-
-    <button id="play-button" class="action">Play Run</button>
-    <button id="stop-button" class="action">Stop Run</button>
-
-    <label for="gain">Gain</label>
-    <input type="range" min="0" max="1" step="0.1" id="gain" />
-
-    <label for="waveform">Waveform type</label>
-    <select id="waveform">
-        <option value="sine">Sine</option>
-        <option value="square" selected>Square</option>
-        <option value="triangle">Triangle</option>
-        <option value="sawtooth">Sawtooth</option>
-    </select>
-
-    <p>Prior art: <a href="https://adactio.com/journal/12811">Sonic Sparklines</a> and <a href="https://gist.github.com/adactio/d988edc418aabfa2220456dc548dedc1">Convert numbers to sounds</a> by Jeremy Keith, and <a href="http://marcgg.com/blog/2016/11/01/javascript-audio/">Note frequencies in Hertz</a> by Marc Gauthier.</p>
-
-    <script type="module">
-        // You can now import JSON as a module
-        import stream from "/data/activities/5351605570/stream-heartrate-high.json" assert { type: "json" };
-
-        const altitude = stream.find((s) => s.type === "altitude");
-        const latlng = stream.find((s) => s.type === "latlng");
-        const notes = altitude.data;
-
-        const btn = document.querySelector("#play-button");
-        const stopBtn = document.querySelector("#stop-button");
-        const gainRange = document.querySelector("#gain");
-        const waveform = document.querySelector("#waveform");
-
-        // Create an AudioContext which is our output
-        const output = new AudioContext();
-
-        let oscillator = null;
-        let amplifier = null;
-        let playing = null;
-        let isPlaying = false;
-        let paused = false;
-        let note = 0;
-
-        let marker;
-
-        const playNotes = () => {
-            if (!paused && note < notes.length) {
-                amplifier.gain.value = document.querySelector("#gain").value;
-
-                // Convert the current data point from the elevation stream to a frequency value
-                oscillator.frequency.value = 440 + (notes[note] * 64); // hertz
-
-                // Update the position of the marker from the latlng stream
-                marker.setLatLng(latlng.data[note]);
-
-                note = note + 1;
-            } else {
-                // At the end of the stream, set gain to zero otherwise the oscillator will continue to be heard
-                amplifier.gain.value = 0;
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Activities from Strava turned into sounds">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hear My Run</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             }
 
-            if (!paused) {
-                playing = window.setTimeout(playNotes, 25);
-            }
-        };
-
-        btn.addEventListener("click", () => {
-            if (!oscillator) {
-                // An oscillator creates a constant tone
-                oscillator = output.createOscillator();
-                // Set the type of waveform
-                oscillator.type = waveform.value;
-
-                // Gain = volume
-                amplifier = output.createGain();
-                amplifier.gain.value = document.querySelector("#gain").value;
-                // Connect the amplifier to the output
-                amplifier.connect(output.destination);
-
-                // Connect the oscillator to the amplifier
-                oscillator.connect(amplifier);
-                // Start the oscillator. Note once stopped you cannot restart.
-                oscillator.start();
+            #activity-map {
+                height: 600px;
             }
 
-            if (altitude) {
-                paused = false;
-                playNotes();
+            .action {
+                border: 1px solid #333;
+                border-radius: 3px;
+                background: transparent;
+                padding: 1em;
+                margin: 1em auto;
             }
-        });
+        </style>
+    </head>
+    <body>
+        <h1>Hear My Run</h1>
+        <div id="activity-map"></div>
 
-        stopBtn.addEventListener("click", () => {
-            paused = true;
-        });
+        <button id="play-button" class="action">Play Run</button>
+        <button id="stop-button" class="action">Stop Run</button>
 
-        gainRange.addEventListener("change", (event) => {
-            amplifier.gain.value = event.target.value;
-        });
+        <label for="gain">Gain</label>
+        <input type="range" min="0" max="1" step="0.1" id="gain" />
 
-        waveform.addEventListener("change", (event) => {
-            oscillator.type = event.target.value;
-        });
+        <label for="waveform">Waveform type</label>
+        <select id="waveform">
+            <option value="sine">Sine</option>
+            <option value="square" selected>Square</option>
+            <option value="triangle">Triangle</option>
+            <option value="sawtooth">Sawtooth</option>
+        </select>
 
-        const activityMap = L.map("activity-map").setView([50.73, -2.02], 13);
+        <p>Prior art: <a href="https://adactio.com/journal/12811">Sonic Sparklines</a> and <a href="https://gist.github.com/adactio/d988edc418aabfa2220456dc548dedc1">Convert numbers to sounds</a> by Jeremy Keith, and <a href="http://marcgg.com/blog/2016/11/01/javascript-audio/">Note frequencies in Hertz</a> by Marc Gauthier.</p>
 
-        // Add my face
-        const icon = L.icon({
-            iconUrl: "/images/me.png",
-            iconSize: [48, 68],
-        });
+        <script type="module">
+            // You can now import JSON as a module
+            import stream from "/data/activities/5351605570/stream-heartrate-high.json" assert { type: "json" };
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken: 'pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A'
-        }).addTo(activityMap);
+            const altitude = stream.find((s) => s.type === "altitude");
+            const latlng = stream.find((s) => s.type === "latlng");
+            const notes = altitude.data;
 
-        // Take the latlng stream and add as a polyline... could also use the GeoEncoded polyline in the activity JSON but this requires an additional Leaflet plugin
-        const route = L.polyline(latlng.data, {
-            color: 'blue',
-            weight: 2,
-            opacity: .7,
-            lineJoin: 'round',
-        }).addTo(activityMap);
+            const btn = document.querySelector("#play-button");
+            const stopBtn = document.querySelector("#stop-button");
+            const gainRange = document.querySelector("#gain");
+            const waveform = document.querySelector("#waveform");
 
-        marker = L.marker(latlng.data[0], { icon }).addTo(activityMap);
+            // Create an AudioContext which is our output
+            const output = new AudioContext();
 
-        activityMap.fitBounds(route.getBounds());
-    </script>
-</body>
+            let oscillator = null;
+            let amplifier = null;
+            let playing = null;
+            let isPlaying = false;
+            let paused = false;
+            let note = 0;
+
+            let marker;
+
+            const playNotes = () => {
+                if (!paused && note < notes.length) {
+                    amplifier.gain.value = document.querySelector("#gain").value;
+
+                    // Convert the current data point from the elevation stream to a frequency value
+                    oscillator.frequency.value = 440 + (notes[note] * 64); // hertz
+
+                    // Update the position of the marker from the latlng stream
+                    marker.setLatLng(latlng.data[note]);
+
+                    note = note + 1;
+                } else {
+                    // At the end of the stream, set gain to zero otherwise the oscillator will continue to be heard
+                    amplifier.gain.value = 0;
+                }
+
+                if (!paused) {
+                    playing = window.setTimeout(playNotes, 25);
+                }
+            };
+
+            btn.addEventListener("click", () => {
+                if (!oscillator) {
+                    // An oscillator creates a constant tone
+                    oscillator = output.createOscillator();
+                    // Set the type of waveform
+                    oscillator.type = waveform.value;
+
+                    // Gain = volume
+                    amplifier = output.createGain();
+                    amplifier.gain.value = document.querySelector("#gain").value;
+                    // Connect the amplifier to the output
+                    amplifier.connect(output.destination);
+
+                    // Connect the oscillator to the amplifier
+                    oscillator.connect(amplifier);
+                    // Start the oscillator. Note once stopped you cannot restart.
+                    oscillator.start();
+                }
+
+                if (altitude) {
+                    paused = false;
+                    playNotes();
+                }
+            });
+
+            stopBtn.addEventListener("click", () => {
+                paused = true;
+            });
+
+            gainRange.addEventListener("change", (event) => {
+                amplifier.gain.value = event.target.value;
+            });
+
+            waveform.addEventListener("change", (event) => {
+                oscillator.type = event.target.value;
+            });
+
+            const activityMap = L.map("activity-map").setView([50.73, -2.02], 13);
+
+            // Add my face
+            const icon = L.icon({
+                iconUrl: "/images/me.png",
+                iconSize: [48, 68],
+            });
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A'
+            }).addTo(activityMap);
+
+            // Take the latlng stream and add as a polyline... could also use the GeoEncoded polyline in the activity JSON but this requires an additional Leaflet plugin
+            const route = L.polyline(latlng.data, {
+                color: 'blue',
+                weight: 2,
+                opacity: .7,
+                lineJoin: 'round',
+            }).addTo(activityMap);
+
+            marker = L.marker(latlng.data[0], { icon }).addTo(activityMap);
+
+            activityMap.fitBounds(route.getBounds());
+        </script>
+    </body>
+</html>
