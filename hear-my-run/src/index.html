@@ -27,7 +27,7 @@
     </head>
     <body>
         <h1>Hear My Run</h1>
-        <div id="activity-map"></div>
+        <div id="activity-map" data-activity="5351605570"></div>
 
         <button id="play-button" class="action">Play Run</button>
         <button id="stop-button" class="action">Stop Run</button>
@@ -45,22 +45,18 @@
 
         <p>Prior art: <a href="https://adactio.com/journal/12811">Sonic Sparklines</a> and <a href="https://gist.github.com/adactio/d988edc418aabfa2220456dc548dedc1">Convert numbers to sounds</a> by Jeremy Keith, and <a href="http://marcgg.com/blog/2016/11/01/javascript-audio/">Note frequencies in Hertz</a> by Marc Gauthier.</p>
 
-        <script type="module">
-            // You can now import JSON as a module
-            import stream from "/data/activities/5351605570/stream-heartrate-high.json" assert { type: "json" };
-
-            const altitude = stream.find((s) => s.type === "altitude");
-            const latlng = stream.find((s) => s.type === "latlng");
-            const notes = altitude.data;
-
+        <script>
+            const map = document.querySelector("#activity-map");
             const btn = document.querySelector("#play-button");
             const stopBtn = document.querySelector("#stop-button");
             const gainRange = document.querySelector("#gain");
             const waveform = document.querySelector("#waveform");
 
-            // Create an AudioContext which is our output
-            const output = new AudioContext();
+            let altitude = null;
+            let latlng = null;
+            let notes = null;
 
+            let output = null;
             let oscillator = null;
             let amplifier = null;
             let playing = null;
@@ -70,28 +66,7 @@
 
             let marker;
 
-            const playNotes = () => {
-                if (!paused && note < notes.length) {
-                    amplifier.gain.value = document.querySelector("#gain").value;
-
-                    // Convert the current data point from the elevation stream to a frequency value
-                    oscillator.frequency.value = 440 + (notes[note] * 64); // hertz
-
-                    // Update the position of the marker from the latlng stream
-                    marker.setLatLng(latlng.data[note]);
-
-                    note = note + 1;
-                } else {
-                    // At the end of the stream, set gain to zero otherwise the oscillator will continue to be heard
-                    amplifier.gain.value = 0;
-                }
-
-                if (!paused) {
-                    playing = window.setTimeout(playNotes, 25);
-                }
-            };
-
-            btn.addEventListener("click", () => {
+            const onPlay = () => {
                 if (!oscillator) {
                     // An oscillator creates a constant tone
                     oscillator = output.createOscillator();
@@ -114,48 +89,103 @@
                     paused = false;
                     playNotes();
                 }
-            });
+            };
 
-            stopBtn.addEventListener("click", () => {
-                paused = true;
-            });
+            const onStop = () => {
+                if (oscillator) {
+                    paused = true;
+                }
+            };
 
-            gainRange.addEventListener("change", (event) => {
-                amplifier.gain.value = event.target.value;
-            });
+            const onGainChange = (event) => {
+                if (amplifier) {
+                    amplifier.gain.value = event.target.value;
+                }
+            };
 
-            waveform.addEventListener("change", (event) => {
-                oscillator.type = event.target.value;
-            });
+            const onWaveformSelect = (event) => {
+                if (oscillator) {
+                    oscillator.type = event.target.value;
+                }
+            };
 
-            const activityMap = L.map("activity-map").setView([50.73, -2.02], 13);
+            const playNotes = () => {
+                if (!paused && note < notes.length) {
+                    amplifier.gain.value = document.querySelector("#gain").value;
 
-            // Add my face
-            const icon = L.icon({
-                iconUrl: "/images/me.png",
-                iconSize: [48, 68],
-            });
+                    // Convert the current data point from the elevation stream to a frequency value
+                    oscillator.frequency.value = 440 + (notes[note] * 64); // hertz
 
-            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-                tileSize: 512,
-                zoomOffset: -1,
-                accessToken: 'pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A'
-            }).addTo(activityMap);
+                    // Update the position of the marker from the latlng stream
+                    marker.setLatLng(latlng.data[note]);
 
-            // Take the latlng stream and add as a polyline... could also use the GeoEncoded polyline in the activity JSON but this requires an additional Leaflet plugin
-            const route = L.polyline(latlng.data, {
-                color: 'blue',
-                weight: 2,
-                opacity: .7,
-                lineJoin: 'round',
-            }).addTo(activityMap);
+                    note = note + 1;
+                } else {
+                    // At the end of the stream, set gain to zero otherwise the oscillator will continue to be heard
+                    amplifier.gain.value = 0;
+                }
 
-            marker = L.marker(latlng.data[0], { icon }).addTo(activityMap);
+                if (!paused) {
+                    playing = window.setTimeout(playNotes, 25);
+                }
+            };
 
-            activityMap.fitBounds(route.getBounds());
+            const getActivityStream = (id) => {
+                return fetch(`/data/activities/${id}/stream-high.json`).then((response) => response.json());
+            };
+
+            const setupMap = () => {
+                const activityMap = L.map("activity-map").setView([50.73, -2.02], 13);
+
+                // Add my face
+                const icon = L.icon({
+                    iconUrl: "/images/me.png",
+                    iconSize: [48, 68],
+                });
+
+                L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: 'pk.eyJ1IjoiaWh1bnRpbmd0b24iLCJhIjoiY2pmMmQ4Zm1jMWVsOTJ4b205bWhvZ29vdSJ9.rAuuP5HUDa1dxbEoHOYI6A'
+                }).addTo(activityMap);
+
+                // Take the latlng stream and add as a polyline... could also use the GeoEncoded polyline in the activity JSON but this requires an additional Leaflet plugin
+                const route = L.polyline(latlng.data, {
+                    color: 'blue',
+                    weight: 2,
+                    opacity: .7,
+                    lineJoin: 'round',
+                }).addTo(activityMap);
+
+                marker = L.marker(latlng.data[0], { icon }).addTo(activityMap);
+
+                activityMap.fitBounds(route.getBounds());
+            };
+
+            const init = async () => {
+                const activity = map.dataset.activity;
+                const stream = await getActivityStream(activity);
+
+                altitude = stream.find((s) => s.type === "altitude");
+                latlng = stream.find((s) => s.type === "latlng");
+                notes = altitude.data;
+
+                // Create an AudioContext which is our output
+                output = new AudioContext();
+
+                setupMap();
+
+                // TODO rename  element IDs
+                btn.addEventListener("click", onPlay);
+                stopBtn.addEventListener("click", onStop);
+                gainRange.addEventListener("change", onGainChange);
+                waveform.addEventListener("change", onWaveformSelect);
+            };
+        
+            init();
         </script>
     </body>
 </html>
